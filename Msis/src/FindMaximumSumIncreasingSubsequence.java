@@ -33,7 +33,7 @@ public class FindMaximumSumIncreasingSubsequence {
             }
         }
 
-//        Collections.reverse(msisSeq);
+     Collections.reverse(msisSeq);
         return msisSeq;
     }
 }
