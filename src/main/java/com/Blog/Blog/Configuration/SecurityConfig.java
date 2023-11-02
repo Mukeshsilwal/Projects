@@ -24,11 +24,9 @@ public class SecurityConfig {
 
     private final JwtFilterChain jwtAuthenticationFilter;
     private final JwtEntryPoint jwtEntryPoint;
-    private final UserDetailsService userDetailsService;
-    public SecurityConfig(@Lazy JwtFilterChain jwtAuthenticationFilter, JwtEntryPoint jwtEntryPoint, UserDetailsService userDetailsService) {
+    public SecurityConfig(@Lazy JwtFilterChain jwtAuthenticationFilter, JwtEntryPoint jwtEntryPoint) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.jwtEntryPoint = jwtEntryPoint;
-        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -37,6 +35,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/user/**","/role/**","/auth/**","/post/**").permitAll()
                 .antMatchers("/comment/**").hasAuthority("ADMIN")
+                .antMatchers("/post/**").hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()

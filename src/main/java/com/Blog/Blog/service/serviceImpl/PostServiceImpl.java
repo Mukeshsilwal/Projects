@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
     private final PostRepo postRepo;
     private final ModelMapper modelMapper;
-    private final FileUploadConfig fileUploadConfig;
     @Override
     public PostDto createPost(PostDto postDto) {
         Post post=this.dtoToPost(postDto);
