@@ -61,6 +61,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto createCommentForPost(CommentDto commentDto, Integer id) {
         Post post=this.postRepo.findById(id).orElseThrow(() -> new ResourceNotFound("Post","id",id));
         Comment comment=this.dtoToComment(commentDto);
+        comment.setPost(post);
         Comment comment1=this.commentRepo.save(comment);
         return commentToDto(comment1);
     }

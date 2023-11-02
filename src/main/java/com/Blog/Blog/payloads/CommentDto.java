@@ -16,5 +16,5 @@ public class CommentDto {
     private int id;
     private String content;
     private Date date;
-    private PostDto post;
+    private PostDto postDto;
 }
