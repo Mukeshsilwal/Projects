@@ -8,6 +8,7 @@ import com.Blog.Blog.repository.UserRepo;
 import com.Blog.Blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +19,14 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
     @Override
     public UserDto createUser(UserDto userDto) {
         if(userRepo.existsByEmail(userDto.getEmail())){
             throw new ResourceAlreadyExist("Email");
         }
         User user=this.dtoToUser(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User user1=this.userRepo.save(user);
         return userToDto(user1);
     }
